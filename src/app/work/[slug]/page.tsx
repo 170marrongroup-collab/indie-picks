@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getWorkBySlug } from "@/lib/supabase";
@@ -16,9 +17,22 @@ export default async function WorkPage({
     <main className="wrap page">
       <p className="kicker">WORK DETAIL</p>
       <div className="detail">
-        <div className="detailVisual">
-          <b>{work.score}</b>
-          <span>INDIE SCORE</span>
+        <div className={`detailVisual ${work.imageUrl ? "hasImage" : ""}`}>
+          {work.imageUrl ? (
+            <Image
+              src={work.imageUrl}
+              alt={work.title}
+              fill
+              sizes="(max-width: 800px) 100vw, 45vw"
+              className="detailImage"
+              priority
+            />
+          ) : (
+            <>
+              <b>{work.score}</b>
+              <span>INDIE SCORE</span>
+            </>
+          )}
         </div>
 
         <div>
@@ -55,7 +69,7 @@ export default async function WorkPage({
           )}
 
           <p className="notice">
-            ※ 作品情報・画像・価格・販売リンクは、各販売元・ASPの利用規約に沿って掲載してください。
+            ※ 作品情報・画像・価格・販売リンクは、各販売元・ASPの利用規約に沿って掲載しています。
           </p>
         </div>
       </div>
