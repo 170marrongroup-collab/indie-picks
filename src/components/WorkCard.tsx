@@ -1,2 +1,23 @@
-import Link from 'next/link'; import type {Work} from '@/lib/mock';
-export function WorkCard({work,rank}:{work:Work;rank?:number}){return <Link href={`/work/${work.slug}`} className="card"><div className="thumb"><span>{rank ? `#${rank}` : work.tag}</span><b>{work.score}</b><small>SCORE</small></div><div className="cardBody"><p className="eyebrow">{work.creator}</p><h3>{work.title}</h3><p>{work.note}</p><div className="meta"><strong>{work.price}</strong><span>詳細を見る →</span></div></div></Link>}
+import Link from "next/link";
+import type { Work } from "@/lib/supabase";
+
+export function WorkCard({ work, rank }: { work: Work; rank?: number }) {
+  return (
+    <Link href={`/work/${work.slug}`} className="card">
+      <div className="thumb">
+        <span>{rank ? `#${rank}` : work.tag}</span>
+        <b>{work.score}</b>
+        <small>SCORE</small>
+      </div>
+      <div className="cardBody">
+        <p className="eyebrow">{work.creator}</p>
+        <h3>{work.title}</h3>
+        <p>{work.note}</p>
+        <div className="meta">
+          <strong>{work.price}</strong>
+          <span>詳細を見る →</span>
+        </div>
+      </div>
+    </Link>
+  );
+}
