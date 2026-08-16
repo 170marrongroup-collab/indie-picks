@@ -161,3 +161,13 @@ export async function getGenres(): Promise<Genre[]> {
     "genres?select=id,name,slug&order=name.asc"
   );
 }
+
+// src/lib/supabase.ts に追加してください。
+// 既存の getCreators() の下あたりでOKです。
+
+export async function getCreatorBySlug(slug: string): Promise<Creator | null> {
+  const rows = await supabaseFetch<Creator[]>(
+    `creators?select=id,name,slug,description&is_active=eq.true&slug=eq.${encodeURIComponent(slug)}&limit=1`
+  );
+  return rows[0] ?? null;
+}
