@@ -35,12 +35,12 @@ export function PcolleRanking({
     <div className="pcolleWidgetShell">
       <div
         className="pcolle-parts"
-        data-affiliateCategory={category}
-        data-affiliateCount={String(count)}
-        data-affiliateDirection={direction}
-        data-affiliateHeight={String(height)}
-        data-affiliateId={AFFILIATE_ID}
-        data-affiliateType={type}
+        data-affiliatecategory={category}
+        data-affiliatecount={String(count)}
+        data-affiliatedirection={direction}
+        data-affiliateheight={String(height)}
+        data-affiliateid={AFFILIATE_ID}
+        data-affiliatetype={type}
       />
       <div className="pcolleOfficialNote">掲載元：Pcolle</div>
     </div>

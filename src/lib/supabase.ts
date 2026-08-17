@@ -10,6 +10,10 @@ export type Work = {
   affiliateUrl: string | null;
   imageUrl: string | null;
   publishedAt: string | null;
+  platform: string;
+  platformSlug: string;
+  isIndie: boolean;
+  sampleUrl: string | null;
 };
 
 type RawWork = {
@@ -23,7 +27,13 @@ type RawWork = {
   score: number | string | null;
   published_at: string | null;
   created_at: string;
+  is_indie: boolean | null;
+  sample_url: string | null;
   creators: { name: string } | { name: string }[] | null;
+  platforms:
+    | { name: string; slug: string }
+    | { name: string; slug: string }[]
+    | null;
 };
 
 type RawRanking = {
@@ -83,12 +93,13 @@ function one<T>(value: T | T[] | null): T | null {
 }
 
 function yen(price: number | null): string {
-  if (price == null) return "価格未設定";
+  if (price == null) return "価格は販売ページで確認";
   return `¥${price.toLocaleString("ja-JP")}`;
 }
 
 function toWork(row: RawWork, overrideScore?: number | string | null): Work {
   const creator = one(row.creators)?.name ?? "Creator";
+  const platform = one(row.platforms);
   const rawScore = overrideScore ?? row.score ?? 0;
   const score = typeof rawScore === "string" ? Number(rawScore) : rawScore;
 
@@ -97,18 +108,22 @@ function toWork(row: RawWork, overrideScore?: number | string | null): Work {
     slug: row.slug,
     title: row.title,
     creator,
-    tag: row.published_at ? "新着" : "作品",
+    tag: row.published_at ? "新着" : row.is_indie ? "個人撮影" : "作品",
     score: Number.isFinite(score) ? Math.round(score) : 0,
     price: yen(row.price),
     note: row.description ?? "作品情報を準備中です。",
     affiliateUrl: row.affiliate_url,
     imageUrl: row.image_url,
     publishedAt: row.published_at,
+    platform: platform?.name ?? "Unknown",
+    platformSlug: platform?.slug ?? "unknown",
+    isIndie: Boolean(row.is_indie),
+    sampleUrl: row.sample_url,
   };
 }
 
 const WORK_SELECT =
-  "id,slug,title,description,image_url,affiliate_url,price,score,published_at,created_at,creators(name)";
+  "id,slug,title,description,image_url,affiliate_url,price,score,published_at,created_at,is_indie,sample_url,creators(name),platforms(name,slug)";
 
 export async function getLatestWorks(limit = 12): Promise<Work[]> {
   const rows = await supabaseFetch<RawWork[]>(
@@ -122,7 +137,9 @@ export async function getTopWorks(limit = 10): Promise<Work[]> {
 
   try {
     const rankings = await supabaseFetch<RawRanking[]>(
-      `daily_rankings?select=${encodeURIComponent(`rank,score,works(${WORK_SELECT})`)}&ranking_date=eq.${today}&order=rank.asc&limit=${limit}`
+      `daily_rankings?select=${encodeURIComponent(
+        `rank,score,works(${WORK_SELECT})`
+      )}&ranking_date=eq.${today}&order=rank.asc&limit=${limit}`
     );
 
     const mapped = rankings
@@ -143,9 +160,18 @@ export async function getTopWorks(limit = 10): Promise<Work[]> {
   return rows.map((row) => toWork(row));
 }
 
+export async function getIndieTopWorks(limit = 12): Promise<Work[]> {
+  const rows = await supabaseFetch<RawWork[]>(
+    `works?select=${encodeURIComponent(WORK_SELECT)}&is_active=eq.true&is_indie=eq.true&order=score.desc.nullslast,published_at.desc.nullslast,created_at.desc&limit=${limit}`
+  );
+  return rows.map((row) => toWork(row));
+}
+
 export async function getWorkBySlug(slug: string): Promise<Work | null> {
   const rows = await supabaseFetch<RawWork[]>(
-    `works?select=${encodeURIComponent(WORK_SELECT)}&is_active=eq.true&slug=eq.${encodeURIComponent(slug)}&limit=1`
+    `works?select=${encodeURIComponent(WORK_SELECT)}&is_active=eq.true&slug=eq.${encodeURIComponent(
+      slug
+    )}&limit=1`
   );
   return rows[0] ? toWork(rows[0]) : null;
 }
@@ -156,18 +182,17 @@ export async function getCreators(): Promise<Creator[]> {
   );
 }
 
+export async function getCreatorBySlug(slug: string): Promise<Creator | null> {
+  const rows = await supabaseFetch<Creator[]>(
+    `creators?select=id,name,slug,description&is_active=eq.true&slug=eq.${encodeURIComponent(
+      slug
+    )}&limit=1`
+  );
+  return rows[0] ?? null;
+}
+
 export async function getGenres(): Promise<Genre[]> {
   return supabaseFetch<Genre[]>(
     "genres?select=id,name,slug&order=name.asc"
   );
-}
-
-// src/lib/supabase.ts に追加してください。
-// 既存の getCreators() の下あたりでOKです。
-
-export async function getCreatorBySlug(slug: string): Promise<Creator | null> {
-  const rows = await supabaseFetch<Creator[]>(
-    `creators?select=id,name,slug,description&is_active=eq.true&slug=eq.${encodeURIComponent(slug)}&limit=1`
-  );
-  return rows[0] ?? null;
 }

@@ -1,25 +1,51 @@
-import { getGenres } from "@/lib/supabase";
+import Link from "next/link";
+import { getGenresWithCounts } from "@/lib/genre-ranking";
 
-export default async function Page() {
-  const genres = await getGenres();
+export default async function GenresPage() {
+  const genres = await getGenresWithCounts();
 
   return (
     <main className="wrap page">
-      <p className="kicker">INDIE PICKS</p>
-      <h1>genres</h1>
-      <p className="lead">登録ジャンルから作品を探せます。</p>
+      <p className="kicker">GENRE RANKING</p>
+      <h1 style={{ fontSize: "clamp(38px,6vw,72px)", marginBottom: 12 }}>
+        ジャンル別ランキング
+      </h1>
+      <p className="lead" style={{ marginBottom: 30 }}>
+        見たいジャンルから、個人撮影作品を探せます。
+      </p>
 
-      <div className="categoryGrid">
-        {genres.map((genre, index) => (
-          <div key={genre.id} className="category">
-            <small>{String(index + 1).padStart(2, "0")}</small>
-            <strong>{genre.name}</strong>
-            <span>→</span>
-          </div>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))",
+          gap: 12,
+        }}
+      >
+        {genres.map((genre) => (
+          <Link
+            key={genre.id}
+            href={`/genres/${genre.slug}`}
+            style={{
+              border: "1px solid #292932",
+              background: "#141419",
+              borderRadius: 14,
+              padding: 18,
+              color: "#fff",
+              display: "block",
+            }}
+          >
+            <small style={{ color: "#ff5c7a", fontWeight: 900 }}>
+              個撮ランキング
+            </small>
+            <strong style={{ display: "block", fontSize: 20, marginTop: 8 }}>
+              {genre.name}
+            </strong>
+            <span style={{ display: "block", color: "#777", fontSize: 11, marginTop: 10 }}>
+              {genre.workCount}作品 →
+            </span>
+          </Link>
         ))}
       </div>
-
-      {genres.length === 0 && <p className="lead">ジャンル情報を準備中です。</p>}
     </main>
   );
 }

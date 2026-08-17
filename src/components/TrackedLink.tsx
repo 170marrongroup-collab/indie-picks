@@ -1,9 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import type { MouseEvent, ReactNode } from "react";
 
-type TrackedLinkProps = {
+type Props = {
   workId: string;
   source: "detail" | "affiliate";
   href: string;
@@ -19,51 +18,36 @@ export function TrackedLink({
   className,
   external = false,
   children,
-}: TrackedLinkProps) {
-  const handleClick = (_event: MouseEvent<HTMLAnchorElement>) => {
+}: Props) {
+  function handleClick(_event: MouseEvent<HTMLAnchorElement>) {
     try {
-      const body = JSON.stringify({
-        workId,
-        source,
-      });
+      const payload = JSON.stringify({ workId, source });
 
       if (navigator.sendBeacon) {
-        navigator.sendBeacon(
-          "/api/click",
-          new Blob([body], { type: "application/json" })
-        );
+        const blob = new Blob([payload], { type: "application/json" });
+        navigator.sendBeacon("/api/click", blob);
       } else {
         fetch("/api/click", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body,
+          headers: { "Content-Type": "application/json" },
+          body: payload,
           keepalive: true,
         }).catch(() => {});
       }
     } catch {
-      // 計測に失敗してもリンク遷移は止めない
+      // クリック記録失敗でも遷移は止めない
     }
-  };
-
-  if (external) {
-    return (
-      <a
-        href={href}
-        className={className}
-        target="_blank"
-        rel="noopener noreferrer sponsored"
-        onClick={handleClick}
-      >
-        {children}
-      </a>
-    );
   }
 
   return (
-    <Link href={href} className={className} onClick={handleClick}>
+    <a
+      href={href}
+      className={className}
+      onClick={handleClick}
+      target={external ? "_blank" : undefined}
+      rel={external ? "noopener noreferrer sponsored" : undefined}
+    >
       {children}
-    </Link>
+    </a>
   );
 }
