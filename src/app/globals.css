@@ -440,3 +440,93 @@ footer{margin-top:54px}
   .brandText b{font-size:9px;letter-spacing:.11em}
   .brandText small{font-size:7px;margin-top:4px}
 }
+
+
+/* ===== Genre list: compact 3-column cards on mobile ===== */
+.genre-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.genre-card {
+  min-width: 0;
+  min-height: 118px;
+  border: 1px solid #292932;
+  background: #141419;
+  border-radius: 14px;
+  padding: 13px 11px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  transition: transform .16s ease, border-color .16s ease, background .16s ease;
+}
+
+.genre-card:active {
+  transform: scale(.98);
+}
+
+.genre-card-label {
+  color: #ff5c7a;
+  font-size: 10px;
+  line-height: 1.25;
+  font-weight: 900;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.genre-card-name {
+  display: -webkit-box;
+  margin-top: 9px;
+  font-size: clamp(14px, 4vw, 18px);
+  line-height: 1.28;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow-wrap: anywhere;
+}
+
+.genre-card-count {
+  display: block;
+  margin-top: auto;
+  padding-top: 10px;
+  color: #777;
+  font-size: 10px;
+  line-height: 1.2;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .genre-card:hover {
+    transform: translateY(-2px);
+    border-color: #ff5c7a;
+    background: #17171d;
+  }
+}
+
+@media (min-width: 720px) {
+  .genre-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .genre-card {
+    min-height: 132px;
+    padding: 16px;
+  }
+
+  .genre-card-label {
+    font-size: 11px;
+  }
+
+  .genre-card-name {
+    font-size: 19px;
+  }
+}
+
+@media (min-width: 1100px) {
+  .genre-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
