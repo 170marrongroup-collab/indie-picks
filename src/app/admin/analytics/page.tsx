@@ -114,7 +114,7 @@ export default function AnalyticsPage() {
         <div style={topBar}>
           <div>
             <p style={kicker}>
-              INDIE PICKS ADMIN
+              H-IT ADMIN
             </p>
             <h1 style={{ margin: "7px 0 0" }}>
               アクセス解析

@@ -36,7 +36,7 @@ function WorkCard({
           />
         ) : (
           <div className="discoveryNoImage">
-            INDIE PICKS
+            H-IT
           </div>
         )}
 
@@ -126,7 +126,7 @@ export async function AutoOptimizedShelves({
         note="直近7日の詳細クリック・販売ページ遷移・新着度をもとに自動更新。"
         works={shelves.rising}
         badge="急上昇"
-        metric="INDIE SCORE"
+        metric="H-IT SCORE"
       />
 
       <ShelfBlock
@@ -135,16 +135,16 @@ export async function AutoOptimizedShelves({
         note="作品詳細を見た人のうち、販売ページまで進んだ割合を重視。母数が少ない作品は自動補正します。"
         works={shelves.highCtr}
         badge="高CTR"
-        metric="INDIE SCORE"
+        metric="H-IT SCORE"
       />
 
       <ShelfBlock
-        eyebrow="INDIE PICKS"
+        eyebrow="H-IT"
         title="今注目の個人撮影"
-        note="INDIE SCOREと直近30日のアクセス実績を組み合わせた総合注目ランキング。"
+        note="H-IT SCOREと直近30日のアクセス実績を組み合わせた総合注目ランキング。"
         works={shelves.attention}
         badge="注目"
-        metric="INDIE SCORE"
+        metric="H-IT SCORE"
       />
     </>
   );

@@ -34,7 +34,7 @@ function SampleCard({
           />
         ) : (
           <div className="discoveryNoImage">
-            INDIE PICKS
+            H-IT
           </div>
         )}
 
@@ -54,7 +54,7 @@ function SampleCard({
         <p>{work.creator}</p>
 
         <div className="discoveryMeta">
-          <span>INDIE SCORE</span>
+          <span>H-IT SCORE</span>
           <b>{work.score}</b>
         </div>
       </div>

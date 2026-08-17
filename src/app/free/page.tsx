@@ -25,7 +25,7 @@ export default async function FreeSamplePage() {
         style={{ marginBottom: 34 }}
       >
         公式サンプル動画がある個人撮影作品を、
-        INDIE SCORE順にランキング。
+        H-IT SCORE順にランキング。
         気になる作品は詳細ページで
         公式サンプルを再生できます。
       </p>
@@ -64,7 +64,7 @@ export default async function FreeSamplePage() {
                   />
                 ) : (
                   <div className="discoveryNoImage">
-                    INDIE PICKS
+                    H-IT
                   </div>
                 )}
 
@@ -84,7 +84,7 @@ export default async function FreeSamplePage() {
                 <p>{work.creator}</p>
 
                 <div className="discoveryMeta">
-                  <span>INDIE SCORE</span>
+                  <span>H-IT SCORE</span>
                   <b>{work.score}</b>
                 </div>
               </div>

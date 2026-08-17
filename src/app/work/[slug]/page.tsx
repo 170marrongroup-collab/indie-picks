@@ -31,7 +31,7 @@ export default async function WorkPage({
           ) : (
             <>
               <b>{work.score}</b>
-              <span>INDIE SCORE</span>
+              <span>H-IT SCORE</span>
             </>
           )}
         </div>
@@ -98,7 +98,7 @@ export default async function WorkPage({
 
           <div className="scoreBox">
             <div>
-              <small>INDIE SCORE</small>
+              <small>H-IT SCORE</small>
               <strong>{work.score}</strong>
             </div>
           </div>
@@ -120,7 +120,7 @@ export default async function WorkPage({
           )}
 
           <p className="notice">
-            ※ INDIE SCOREは新着度・販売元情報・サイト内人気などから算出する独自指標です。
+            ※ H-IT SCOREは新着度・販売元情報・サイト内人気などから算出する独自指標です。
           </p>
         </div>
       </div>

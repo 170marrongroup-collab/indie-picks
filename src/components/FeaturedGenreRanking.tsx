@@ -66,7 +66,7 @@ export async function FeaturedGenreRanking({
           }}
         >
           {genre.featuredDescription ||
-            `${genre.name}の個人撮影作品を、INDIE SCORE順にピックアップ。`}
+            `${genre.name}の個人撮影作品を、H-IT SCORE順にピックアップ。`}
         </p>
       </div>
 

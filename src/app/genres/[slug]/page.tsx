@@ -22,7 +22,7 @@ export default async function GenreRankingPage({
         個撮　{genre.name} ランキング
       </h1>
       <p className="lead" style={{ marginBottom: 28 }}>
-        INDIE PICKSに登録された「{genre.name}」作品をINDIE SCORE順に表示。
+        H-ITに登録された「{genre.name}」作品をH-IT SCORE順に表示。
       </p>
 
       {works.length ? (

@@ -254,7 +254,7 @@ export default function AdminWorksPage() {
       <div style={wrap}>
         <div style={head}>
           <div>
-            <p style={kicker}>INDIE PICKS ADMIN</p>
+            <p style={kicker}>H-IT ADMIN</p>
             <h1 style={{ margin: "7px 0 0" }}>作品管理</h1>
           </div>
 

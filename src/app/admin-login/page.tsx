@@ -68,7 +68,7 @@ export default function AdminLoginPage() {
             margin: 0,
           }}
         >
-          INDIE PICKS ADMIN
+          H-IT ADMIN
         </p>
 
         <h1 style={{ fontSize: 28, margin: "8px 0 8px" }}>

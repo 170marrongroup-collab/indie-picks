@@ -226,7 +226,7 @@ export async function getDiscoveryShelves(
 
       // 急上昇:
       // 直近7日の販売ページ遷移を最も強く、
-      // 詳細クリック・新着度・INDIE SCOREを補助にする。
+      // 詳細クリック・新着度・H-IT SCOREを補助にする。
       const risingScore =
         Math.log1p(clicksForWork.affiliate7) * 30 +
         Math.log1p(clicksForWork.detail7) * 12 +
@@ -294,7 +294,7 @@ export async function getDiscoveryShelves(
 
   // 高CTRは母数が少なすぎる作品を上位にしない。
   // 詳細5クリック以上を優先し、足りない場合は30日実績、
-  // それでも足りなければINDIE SCOREで補完。
+  // それでも足りなければH-IT SCOREで補完。
   const highCtrStrong = enriched
     .filter((work) => work.detail7 >= 5)
     .sort((a, b) => {

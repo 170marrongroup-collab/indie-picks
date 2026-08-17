@@ -26,7 +26,7 @@ export function GenreWorkCard({
             className="discoveryWorkImage"
           />
         ) : (
-          <div className="discoveryNoImage">INDIE PICKS</div>
+          <div className="discoveryNoImage">H-IT</div>
         )}
 
         {rank ? <span className="rankPill">#{rank}</span> : null}
@@ -40,7 +40,7 @@ export function GenreWorkCard({
         <h3>{work.title}</h3>
         <p>{work.creator}</p>
         <div className="discoveryMeta">
-          <span>INDIE SCORE</span>
+          <span>H-IT SCORE</span>
           <b>{work.score}</b>
         </div>
       </div>

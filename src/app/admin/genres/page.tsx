@@ -246,7 +246,7 @@ export default function AdminGenresPage() {
         <div style={head}>
           <div>
             <p style={kicker}>
-              INDIE PICKS ADMIN
+              H-IT ADMIN
             </p>
 
             <h1

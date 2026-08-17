@@ -43,7 +43,7 @@ function CompactWorkCard({
           />
         ) : (
           <div className="discoveryNoImage">
-            INDIE PICKS
+            H-IT
           </div>
         )}
 
@@ -69,7 +69,7 @@ function CompactWorkCard({
         <p>{work.creator}</p>
 
         <div className="discoveryMeta">
-          <span>INDIE SCORE</span>
+          <span>H-IT SCORE</span>
           <b>{work.score}</b>
         </div>
       </div>
@@ -130,7 +130,7 @@ export default async function Home() {
           <div className="compactHeroTop">
             <div>
               <p className="kicker">
-                INDIE ADULT DISCOVERY
+                H-ITEM TREND
               </p>
 
               <h1>
@@ -204,9 +204,9 @@ export default async function Home() {
         </div>
       </div>
 
-      {/* INDIE CROSS RANKING */}
+      {/* H-IT CROSS RANKING */}
       <Shelf
-        eyebrow="INDIE CROSS RANKING"
+        eyebrow="H-IT CROSS RANKING"
         title="個人撮影 総合ランキング"
         href="/ranking"
       >

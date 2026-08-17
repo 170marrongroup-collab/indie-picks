@@ -6,7 +6,7 @@ export default async function Page() {
 
   return (
     <main className="wrap page">
-      <p className="kicker">INDIE PICKS</p>
+      <p className="kicker">H-IT</p>
       <h1>new</h1>
       <p className="lead">Supabaseに登録された最新作品を表示しています。</p>
 

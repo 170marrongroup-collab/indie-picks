@@ -1,4 +1,4 @@
-# INDIE PICKS starter
+# H-IT / H-ITEM TREND
 
 個人・同人作品の発見メディア向けNext.jsスターター。
 
