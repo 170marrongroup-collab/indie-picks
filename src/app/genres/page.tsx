@@ -14,35 +14,16 @@ export default async function GenresPage() {
         見たいジャンルから、個人撮影作品を探せます。
       </p>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))",
-          gap: 12,
-        }}
-      >
+      <div className="genre-grid">
         {genres.map((genre) => (
           <Link
             key={genre.id}
             href={`/genres/${genre.slug}`}
-            style={{
-              border: "1px solid #292932",
-              background: "#141419",
-              borderRadius: 14,
-              padding: 18,
-              color: "#fff",
-              display: "block",
-            }}
+            className="genre-card"
           >
-            <small style={{ color: "#ff5c7a", fontWeight: 900 }}>
-              個撮ランキング
-            </small>
-            <strong style={{ display: "block", fontSize: 20, marginTop: 8 }}>
-              {genre.name}
-            </strong>
-            <span style={{ display: "block", color: "#777", fontSize: 11, marginTop: 10 }}>
-              {genre.workCount}作品 →
-            </span>
+            <small className="genre-card-label">個撮ランキング</small>
+            <strong className="genre-card-name">{genre.name}</strong>
+            <span className="genre-card-count">{genre.workCount}作品 →</span>
           </Link>
         ))}
       </div>
