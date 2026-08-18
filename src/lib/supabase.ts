@@ -167,6 +167,46 @@ export async function getIndieTopWorks(limit = 12): Promise<Work[]> {
   return rows.map((row) => toWork(row));
 }
 
+
+export async function getWorksByPeriod(days: number, limit = 60): Promise<Work[]> {
+  const since = new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString();
+
+  const rows = await supabaseFetch<RawWork[]>(
+    `works?select=${encodeURIComponent(WORK_SELECT)}&is_active=eq.true&published_at=gte.${encodeURIComponent(
+      since
+    )}&order=score.desc.nullslast,published_at.desc.nullslast&limit=${limit}`
+  );
+
+  return rows.map((row) => toWork(row));
+}
+
+export async function getWorksByMaxPrice(
+  maxPrice: number,
+  limit = 60
+): Promise<Work[]> {
+  const rows = await supabaseFetch<RawWork[]>(
+    `works?select=${encodeURIComponent(WORK_SELECT)}&is_active=eq.true&price=not.is.null&price=lte.${maxPrice}&order=score.desc.nullslast,published_at.desc.nullslast&limit=${limit}`
+  );
+
+  return rows.map((row) => toWork(row));
+}
+
+export async function getSampleWorks(limit = 60): Promise<Work[]> {
+  const rows = await supabaseFetch<RawWork[]>(
+    `works?select=${encodeURIComponent(WORK_SELECT)}&is_active=eq.true&sample_url=not.is.null&order=score.desc.nullslast,published_at.desc.nullslast&limit=${limit}`
+  );
+
+  return rows.map((row) => toWork(row));
+}
+
+export async function getWorkSlugs(
+  limit = 5000
+): Promise<{ slug: string; published_at: string | null; created_at: string }[]> {
+  return supabaseFetch(
+    `works?select=slug,published_at,created_at&is_active=eq.true&order=created_at.desc&limit=${limit}`
+  );
+}
+
 export async function getWorkBySlug(slug: string): Promise<Work | null> {
   const rows = await supabaseFetch<RawWork[]>(
     `works?select=${encodeURIComponent(WORK_SELECT)}&is_active=eq.true&slug=eq.${encodeURIComponent(
